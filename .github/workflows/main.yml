@@ -1,0 +1,51 @@
+
+name: Compilar DOKYOne iOS (sin firmar)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  compilar:
+    runs-on: macos-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Descargar proyecto
+        uses: actions/checkout@v4
+
+      - name: Mostrar Xcode
+        run: xcodebuild -version
+
+      - name: Resolver dependencias Swift
+        run: |
+          xcodebuild -resolvePackageDependencies \
+            -project DOKYOne.xcodeproj \
+            -scheme DOKYOne
+
+      - name: Compilar iPhone sin firma
+        run: |
+          xcodebuild \
+            -project DOKYOne.xcodeproj \
+            -scheme DOKYOne \
+            -configuration Release \
+            -destination 'generic/platform=iOS' \
+            -derivedDataPath "$RUNNER_TEMP/DOKYOneBuild" \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            build
+
+      - name: Empaquetar IPA sin firma
+        run: |
+          mkdir -p "$RUNNER_TEMP/entrega/Payload"
+          cp -R "$RUNNER_TEMP/DOKYOneBuild/Build/Products/Release-iphoneos/DOKYOne.app" "$RUNNER_TEMP/entrega/Payload/"
+          cd "$RUNNER_TEMP/entrega"
+          zip -qr DOKYOne_0_2_SIN_FIRMAR.ipa Payload
+          rm -rf Payload
+
+      - name: Subir resultado
+        uses: actions/upload-artifact@v4
+        with:
+          name: DOKYOne_0_2_iOS_sin_firmar
+          path: ${{ runner.temp }}/entrega/DOKYOne_0_2_SIN_FIRMAR.ipa
+          if-no-files-found: error
