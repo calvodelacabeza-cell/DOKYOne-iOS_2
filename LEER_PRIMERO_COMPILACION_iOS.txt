@@ -1,0 +1,47 @@
+DOKYOne iOS 0.2 — CÓDIGO FUENTE Y COMPILACIÓN
+Fecha: 21 noviembre 2026
+
+CONTENIDO
+- DOKYOne.xcodeproj : proyecto Xcode para iPhone (iOS 16 en adelante)
+- DOKYOne/*.swift : lector de programas .dokyone
+- Assets.xcassets : icono plano azul marino + D blanca + esquina turquesa
+- .github/workflows/compilar-ios-sin-firmar.yml : compilar EN LA NUBE desde Windows
+
+IMPORTANTE
+Esta es la última fuente de iPhone recuperada del paquete unificado original: versión 0.2.
+NO es igual a la versión de Android 0.6.7; NO contiene todas sus mejoras recientes.
+No se ha compilado aquí una aplicación iOS para un iPhone físico; se validó la sintaxis Swift,
+la integridad del ZIP y los recursos del proyecto. La firma no viene incluida.
+
+SI TIENES MAC (recomendado para instalar en tu propio iPhone)
+1. Instala Xcode desde la Mac App Store.
+2. Descomprime este ZIP y abre DOKYOne.xcodeproj.
+3. En Xcode > Settings > Accounts inicia sesión con la cuenta Apple que ya registraste.
+4. Selecciona el proyecto DOKYOne > TARGETS DOKYOne > Signing & Capabilities.
+5. Activa Automatically manage signing y selecciona tu Team (Personal Team si es gratuito).
+6. Si Xcode informa que el Bundle Identifier ya está ocupado, usa un identificador único.
+7. Conecta tu iPhone a la Mac, confía en el equipo y habilita Developer Mode si iOS lo pide.
+8. Selecciona el iPhone como destino y pulsa Run (▶).
+9. Para TestFlight/App Store necesitas la inscripción de pago correspondiente.
+
+SI SOLO TIENES WINDOWS
+1. Instala GitHub Desktop desde https://desktop.github.com/ y crea una cuenta GitHub.
+   Tu cuenta Apple/iCloud es APARTE de la cuenta GitHub.
+2. Extrae todo el ZIP en una carpeta local; asegúrate de incluir la carpeta oculta .github.
+3. Abre GitHub Desktop y selecciona File > Add local repository, elige la carpeta.
+   Si pide crear un repositorio, selecciona 'create a repository here'.
+4. Confirma los archivos (Commit) y usa Publish repository (preferiblemente privado).
+5. En github.com abre el repositorio > Actions > Compilar DOKYOne iOS (sin firmar)
+   > Run workflow. GitHub usa un equipo Mac remoto para compilar.
+6. Descarga el artifact. Es un IPA SIN FIRMAR: NO se instala directamente en iPhone.
+7. Para instalar en tu iPhone con cuenta gratuita utiliza una Mac + Xcode y firma automática.
+
+QUÉ NO NECESITAS INSTALAR EN WINDOWS
+- Xcode (no existe para Windows)
+- Android Studio (no compila iPhone)
+- Certificados de iCloud en el equipo Windows para probar con Xcode en una Mac.
+
+SEGURIDAD
+- Nunca subas contraseñas Apple, códigos 2FA, certificados .p12, ni claves privadas al repositorio.
+- No confundir ZIP de simulador con compilación para iPhone real.
+- Conserva una copia de tus archivos .dokyone antes de probar la app.
